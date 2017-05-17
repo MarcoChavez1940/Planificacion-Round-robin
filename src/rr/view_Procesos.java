@@ -44,8 +44,20 @@ public class view_Procesos extends javax.swing.JFrame {
             new String [] {
                 "Proceso", "Tiempo ráfaga"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tabla_EntradaProcesos);
+        if (tabla_EntradaProcesos.getColumnModel().getColumnCount() > 0) {
+            tabla_EntradaProcesos.getColumnModel().getColumn(0).setResizable(false);
+            tabla_EntradaProcesos.getColumnModel().getColumn(1).setResizable(false);
+        }
 
         btn_Calcular.setText("Calcular");
 

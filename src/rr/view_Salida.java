@@ -54,8 +54,20 @@ public class view_Salida extends JFrame {
             new String [] {
                 "Proceso", "Tiempo de Ráfaga"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(tabla_entrada);
+        if (tabla_entrada.getColumnModel().getColumnCount() > 0) {
+            tabla_entrada.getColumnModel().getColumn(0).setResizable(false);
+            tabla_entrada.getColumnModel().getColumn(1).setResizable(false);
+        }
 
         jLabel1.setText("Representación de la CPU ");
 
@@ -79,8 +91,20 @@ public class view_Salida extends JFrame {
             new String [] {
                 "Proceso", "Tiempo de espera"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane3.setViewportView(tabla_esperas);
+        if (tabla_esperas.getColumnModel().getColumnCount() > 0) {
+            tabla_esperas.getColumnModel().getColumn(0).setResizable(false);
+            tabla_esperas.getColumnModel().getColumn(1).setResizable(false);
+        }
 
         jLabel3.setText("Tiempos de espera");
 
