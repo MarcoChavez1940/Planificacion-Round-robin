@@ -1,6 +1,7 @@
 package rr;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Stack;
 import javax.swing.table.DefaultTableModel;
 /**
@@ -26,10 +27,11 @@ public class VentanaSalida implements ActionListener{
         contador++;  
     }
     
-    public void dibujarDatosEntrada(Stack pila){
+    public void dibujarDatosEntrada(Stack pila, int quantum){
         DefaultTableModel model = (DefaultTableModel) viewSalida.tabla_entrada.getModel();
+        Object[] fila = new Object[2];
         while(!pila.empty()){
-            Object[] fila = new Object[2];
+            
             
             Proceso aux = (Proceso) pila.pop();
             fila[0] = aux.nombre;
@@ -37,25 +39,31 @@ public class VentanaSalida implements ActionListener{
             
             model.addRow(fila);
             viewSalida.tabla_entrada.setModel(model);
-        }   
+        }
+        
+        fila[0] = "Quantum";
+        fila[1] = quantum;
+        model.addRow(fila);
+        viewSalida.tabla_entrada.setModel(model);
+        
     }
     
-    public void dibujarTiemposEspera(Proceso[] procesos){
+    public void dibujarTiemposEspera(ArrayList<Proceso> procesos){
         DefaultTableModel model = (DefaultTableModel) viewSalida.tabla_esperas.getModel();
         Object[] fila = new Object[2];
         float promedio_espera=0;
         
-        for(int i=0;i<procesos.length;i++){
-            fila[0] = procesos[i].nombre;
-            fila[1] = procesos[i].tiempoEspera;
-            promedio_espera+=procesos[i].tiempoEspera;
+        for(int i=0;i<procesos.size();i++){
+            fila[0] = procesos.get(i).nombre;
+            fila[1] = procesos.get(i).tiempoEspera;
+            promedio_espera+=procesos.get(i).tiempoEspera;
             
             model.addRow(fila);
             viewSalida.tabla_esperas.setModel(model);
         }
         
         fila[0] = "Tiempo promedio de espera: ";
-        fila[1] = promedio_espera/procesos.length;
+        fila[1] = promedio_espera/procesos.size();
         model.addRow(fila);
         viewSalida.tabla_esperas.setModel(model);  
     }

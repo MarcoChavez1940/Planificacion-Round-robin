@@ -69,7 +69,7 @@ public class VentanaEntrada implements ActionListener{
                 
                 if(bandera==true){
                     viewProcesos.dispose();
-                    Calendarizador calendarizador = new Calendarizador(quantum, cantidadProcesos);
+                    Calendarizador calendarizador = new Calendarizador(quantum);
                     //añadiendo los procesos
                     for(int l=0;l<cantidadProcesos;l++){
                         calendarizador.añadirProceso(new Proceso("P" + (l+1),Integer.parseInt((String) viewProcesos.tabla_EntradaProcesos.getValueAt(l, 1))));

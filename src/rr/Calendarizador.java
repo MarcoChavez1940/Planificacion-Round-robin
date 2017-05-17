@@ -1,4 +1,5 @@
 package rr;
+import java.util.ArrayList;
 import java.util.Stack;
 /**
  *
@@ -7,13 +8,13 @@ import java.util.Stack;
 public class Calendarizador {
     private final VentanaSalida ventana = new VentanaSalida();
     public Stack pila = new Stack();
-    public Proceso[] procesos;
+    public ArrayList<Proceso> procesos = new ArrayList();
     private int tiempoPasado = 0;
     private final int quantum;
 
-    public Calendarizador(int quantum, int cantidadProcesos) {
+    public Calendarizador(int quantum) {
         this.quantum=quantum;
-        this.procesos = new Proceso[cantidadProcesos];
+        
     }
     
     public void añadirProceso(Proceso proceso){
@@ -33,7 +34,7 @@ public class Calendarizador {
             añadirTiempoEspera(pila, quantum);
             añadirProceso(aux);
             
-            pila.copyInto(procesos);
+            
         }else{
             this.tiempoPasado+=aux.tiempoRafaga;
             
@@ -41,7 +42,7 @@ public class Calendarizador {
             
             añadirTiempoEspera(pila, aux.tiempoRafaga);
             
-            pila.copyInto(procesos);
+            procesos.add(aux);
         }     
     }
     
@@ -55,7 +56,7 @@ public class Calendarizador {
     }
     
     public void DatosEntrada(){
-        ventana.dibujarDatosEntrada((Stack) pila.clone());
+        ventana.dibujarDatosEntrada((Stack) pila.clone(),quantum);
     }
     
     public void TiemposEspera(){
